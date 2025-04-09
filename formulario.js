@@ -1,4 +1,4 @@
-// Configuração do Firebase (coloque isso fora do event listener)
+// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyB8fw3yHAOTIUqNws8S_579FFKSY4ZRZfU",
   authDomain: "projeto-salas.firebaseapp.com",
@@ -9,13 +9,13 @@ const firebaseConfig = {
   appId: "1:55494640837:web:b00713624afc202bfb5cac"
 };
 
-// Inicializa Firebase (somente uma vez)
+// Inicializa Firebase
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 const database = firebase.database();
 
-// Listener do formulário
+// Submissão do formulário
 document.getElementById("salaForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -67,6 +67,7 @@ document.getElementById("salaForm").addEventListener("submit", function (event) 
           .then(() => {
             document.getElementById("resultado").textContent = "✅ Sala registrada com sucesso!";
             document.getElementById("salaForm").reset();
+            carregarSalas(); // Atualiza tabela após salvar
           })
           .catch(error => {
             console.error("Erro ao salvar:", error);
@@ -75,3 +76,38 @@ document.getElementById("salaForm").addEventListener("submit", function (event) 
       }
     });
 });
+
+// Função para carregar os dados do Firebase e mostrar na tabela
+function carregarSalas() {
+  const tabela = document.querySelector("#tabelaSalas tbody");
+  tabela.innerHTML = ""; // Limpa tabela antes de preencher
+
+  database.ref("salas").once("value").then(snapshot => {
+    snapshot.forEach(child => {
+      const dados = child.val();
+
+      // Converte as datas para o formato DD/MM/AAAA
+      const inicioFormatado = dados.periodoInicio
+        ? new Date(dados.periodoInicio).toLocaleDateString("pt-BR")
+        : "";
+      const fimFormatado = dados.periodoFim
+        ? new Date(dados.periodoFim).toLocaleDateString("pt-BR")
+        : "";
+
+      const linha = document.createElement("tr");
+
+      linha.innerHTML = `
+        <td>${dados.curso}</td>
+        <td>${inicioFormatado}</td>
+        <td>${fimFormatado}</td>
+        <td>${dados.professor}</td>
+        <td>${dados.sala}</td>
+      `;
+
+      tabela.appendChild(linha);
+    });
+  });
+}
+
+// Carrega os dados ao abrir a página
+window.addEventListener("DOMContentLoaded", carregarSalas);
