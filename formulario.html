@@ -17,13 +17,15 @@
 
   <header>
     <img src="./images/SENAI_logo_2024.png" alt="">
+    <span id="btnContainerHeader"></span>
   </header>
 
   <section>
 
     <div id="div1">
+      <button class="btn btn-primary" id="toggleFormBtn" type="submit">Ocultar Formulário</button>
       <div class="container-flex">
-        <div class="form-container">
+        <div class="form-container" id="formContainer">
           <h2>Registro de Sala</h2>
           <form id="salaForm">
             <label for="curso">Curso:</label>
@@ -59,6 +61,7 @@
               <th>Período de Término</th>
               <th>Professor</th>
               <th>Sala</th>
+              <th>Excluir</th>
             </tr>
           </thead>
           <tbody>
@@ -76,6 +79,7 @@
               <th>Período de Término</th>
               <th>Professor</th>
               <th>Sala</th>
+              <th>Excluir</th>
             </tr>
           </thead>
           <tbody>

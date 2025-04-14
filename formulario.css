@@ -15,12 +15,13 @@ section{
   width: 100%;
   overflow-x: hidden;
 }
-header{
+header {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+  padding: 20px 40px;
 }
-
 #div1{
   width: 50vw;
   height: 80vh;
@@ -160,4 +161,32 @@ footer{
   display: flex;
   margin-top: 2px;
   
+}
+.btn.btn-primary {
+  padding: 10px 20px;
+  background-color: #d15e12;
+  color: white;
+  margin: 0 auto 20px auto;
+  width: 500px;
+  border: none;
+  display: block;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+/* Botão ao passar o mouse */
+.btn.btn-primary:hover {
+  background-color: #ba4a00;
+}
+.tabelas-centralizadas {
+  width: 100vw !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#div1.oculto {
+  display: none;
 }
