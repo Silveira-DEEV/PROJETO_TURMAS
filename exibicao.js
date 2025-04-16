@@ -126,14 +126,27 @@ botaopausar.addEventListener("click", function () {
     botaopausar.textContent = "Retomar Exibição";
   }
 });
-  function exportarTabela() {
+document.addEventListener("DOMContentLoaded", () => {
+  const botaoExportar = document.getElementById("btnExportar");
+
+  botaoExportar.addEventListener("click", () => {
     const tabela = document.getElementById("tabelaAndamento");
+
+    if (!tabela) {
+      alert("Tabela não encontrada.");
+      return;
+    }
+
     const html = tabela.outerHTML;
     const url = 'data:application/vnd.ms-excel,' + encodeURIComponent(html);
 
     const link = document.createElement('a');
     link.href = url;
     link.download = 'cursos_em_andamento.xls';
+    document.body.appendChild(link);
     link.click();
-  }
+    document.body.removeChild(link);
+  });
+});
+
 
