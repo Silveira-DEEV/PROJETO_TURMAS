@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Exibição</title>
-    <link rel="shortcut icon" href="./images/logo_site-removebg-preview (1).png" type="image/x-icon">
     <link rel="stylesheet" href="./exibicao.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="./images/logo_site-removebg-preview (1).png" type="image/x-icon">
   </head>
 
   <body>
@@ -17,11 +17,12 @@
         <img src="./images/SENAI_logo_2024.png" alt="">
         <button class="btn btn-primary" id="botaoexibicao" type="submit">Voltar</button>
         <button class="btn btn-primary" id="botaopausar" type="submit">Pausar Exibição</button>
+        <button class="btn btn-primary" onclick="exportarParaExcel()">Exportar para Excel</button>
     </header>
+
     <section>
         <div class="tabela-container">
             <h2>Cursos em Andamento</h2>
-          <button onclick="exportarTabela()">Exportar para Excel</button>
             <table id="tabelaAndamento">
               <thead>
                 <tr>
@@ -34,10 +35,25 @@
               </thead>
               <tbody></tbody>
             </table>
-          </div>
-    </section>
-    
 
+            <!-- Botão de Exportação -->
+           
+        </div>
+    </section>
+
+    <!-- Script principal -->
     <script type="module" src="exibicao.js"></script>
+
+    <!-- Biblioteca SheetJS para exportar Excel -->
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+    <!-- Função de exportação -->
+    <script>
+      function exportarParaExcel() {
+        const tabela = document.getElementById('tabelaAndamento');
+        const wb = XLSX.utils.table_to_book(tabela, { sheet: "Cursos" });
+        XLSX.writeFile(wb, "cursos_em_andamento.xlsx");
+      }
+    </script>
   </body>
 </html>
