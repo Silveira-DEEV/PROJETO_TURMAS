@@ -192,3 +192,6 @@ footer {
 #div1.oculto {
   display: none;
 }
+.editar-btn{
+  margin-top: 7px;
+}
